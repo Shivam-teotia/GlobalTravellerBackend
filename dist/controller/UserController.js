@@ -57,12 +57,12 @@ const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         const { username, password } = req.body;
         const user = yield User_1.default.findOne({ username });
         if (!user) {
-            res.status(401).json({ error: "Invalid credentials" });
+            res.status(404).json({ error: "Invalid credentials" });
             return;
         }
         const isValid = yield bcryptjs_1.default.compare(password, user.password);
         if (!isValid) {
-            res.status(401).json({ error: "Invalid credentials" });
+            res.status(404).json({ error: "Invalid credentials" });
             return;
         }
         const token = jsonwebtoken_1.default.sign({ userId: user._id }, JWT_SECRET, {
