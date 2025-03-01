@@ -44,13 +44,13 @@ export const login = async (req: Request, res: Response) => {
         const { username, password } = req.body;
         const user = await User.findOne({ username });
         if (!user) {
-            res.status(401).json({ error: "Invalid credentials" });
+            res.status(404).json({ error: "Invalid credentials" });
             return;
         }
 
         const isValid = await bcrypt.compare(password, user.password);
         if (!isValid) {
-            res.status(401).json({ error: "Invalid credentials" });
+            res.status(404).json({ error: "Invalid credentials" });
             return;
         }
 
